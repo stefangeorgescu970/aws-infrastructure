@@ -47,7 +47,7 @@ variable "environment_variables" {
 
 variable "cloudwatch_enabled" {
   description = "Whether to enable Cloudwatch Logs."
-  type        = string
+  type        = bool
   default     = false
 }
 
@@ -60,5 +60,5 @@ variable "tags" {
 # Local Variables
 
 locals {
-  lambda_zip_path = "tmp/lambda_zip_inline.zip"
+  lambda_zip_path = "resources/lambda_default_code.zip"
 }

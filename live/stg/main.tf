@@ -2,8 +2,8 @@ terraform {
   required_version = "= 0.12.24"
 
   backend "s3" {
-    region = "eu-west-1"
-    bucket = "stefan-georgescu-terraform-state"
+    region = "eu-central-1"
+    bucket = "stefan-georgescu-terraform-states"
     key    = "stg.terraform.tfstate"
   }
 }
@@ -15,4 +15,18 @@ provider "aws" {
   assume_role {
     role_arn = "arn:aws:iam::691933307799:role/StagingEnvironmentAdminRole"
   }
+}
+
+module "artefict_store" {
+  source = "../../modules/artifact_storage"
+
+  repositories_to_store = ["ci-cd-example"]
+  aws_region            = var.aws_region
+  stage                 = var.stage
+}
+
+module "ci_cd_example_infrastructure" {
+  source = "../../modules/ci_cd_example"
+
+  stage = var.stage
 }

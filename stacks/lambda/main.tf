@@ -1,16 +1,3 @@
-provider "archive" {
-  version = "~> 1.3"
-}
-
-data "archive_file" "lambda_default_zip" {
-  type        = "zip"
-  output_path = local.lambda_zip_path
-  source {
-    content  = file("${path.module}/resources/lambda_default_code.py")
-    filename = "lambda.py"
-  }
-}
-
 module "lambda_iam" {
   source = "../iam/lambda"
 
@@ -25,7 +12,7 @@ resource "aws_lambda_function" "lambda" {
   description   = var.lambda_description
   role          = module.lambda_iam.lambda_role_arn
 
-  filename = data.archive_file.lambda_default_zip.output_path
+  filename = local.lambda_zip_path
   runtime  = var.lambda_runtime
   handler  = var.lambda_handler
 

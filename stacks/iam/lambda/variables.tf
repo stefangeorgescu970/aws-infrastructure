@@ -5,7 +5,7 @@ variable "lambda_name" {
 
 variable "cloudwatch_enabled" {
   description = "Whether to add cloudwatch logs permissions."
-  type        = string
+  type        = bool
 }
 
 variable "tags" {
