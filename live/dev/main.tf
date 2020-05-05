@@ -7,3 +7,14 @@ terraform {
     key    = "dev.terraform.tfstate"
   }
 }
+
+provider "aws" {
+  version = "~> 2.0"
+  region  = var.aws_region
+}
+
+module "ci_cd_example_infrastructure" {
+  source = "../../modules/ci_cd_example"
+
+  stage = var.stage
+}
