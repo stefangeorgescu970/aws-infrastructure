@@ -12,7 +12,7 @@ resource "aws_lambda_function" "lambda" {
   description   = var.lambda_description
   role          = module.lambda_iam.lambda_role_arn
 
-  filename = local.lambda_zip_path
+  filename = "${path.module}/${local.lambda_zip_path}"
   runtime  = var.lambda_runtime
   handler  = var.lambda_handler
 
