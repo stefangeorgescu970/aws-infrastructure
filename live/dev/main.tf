@@ -18,3 +18,9 @@ module "ci_cd_example_infrastructure" {
 
   stage = var.stage
 }
+
+module "home_watcher_infrastructure" {
+  source = "../../modules/home_watcher"
+
+  stage = var.stage
+}
