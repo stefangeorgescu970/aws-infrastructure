@@ -6,7 +6,7 @@ This directory contains Terraform modules encapsulating entire blocks of infrast
 This module provisions an S3 bucket for storing software artifacts for deployment. It is provisioned only in the staging environment and acts as a single source of truth for all artifacts that require some form of storage.
 
 ## The `ci_cd_example` Module
-This module provisions a single Lambda Function which is used for implementing example CI/CD code for a Medium article with the title [**CI/CD Pipeline for AWS with Travis**](https://medium.com/@stefan.georgescu.970/ci-cd-pipeline-for-aws-with-travis).
+This module provisions a single Lambda Function which is used for implementing example CI/CD code for a Medium article with the title [**CI/CD Pipeline for AWS with Travis**](https://medium.com/@stefan.georgescu.970/ci-cd-pipeline-for-aws-with-travis-19c9448be17d).
 
 ## The `home_watcher` Module
 This module provisions some DynamoDB tables that I use for a personal project (called Home Watcher).
