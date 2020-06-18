@@ -17,10 +17,10 @@ provider "aws" {
   }
 }
 
-module "artefict_store" {
+module "artefact_store" {
   source = "../../modules/artifact_storage"
 
-  repositories_to_store = ["ci-cd-example"]
+  repositories_to_store = ["ci-cd-example", "home-watcher-api"]
   aws_region            = var.aws_region
   stage                 = var.stage
 }
