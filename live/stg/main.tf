@@ -17,7 +17,7 @@ provider "aws" {
   }
 }
 
-module "artefact_store" {
+module "artifact_store" {
   source = "../../modules/artifact_storage"
 
   repositories_to_store = ["ci-cd-example", "home-watcher-api"]
