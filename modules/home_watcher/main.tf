@@ -3,7 +3,13 @@ resource "aws_dynamodb_table" "network_data" {
   billing_mode   = "PROVISIONED"
   read_capacity  = 1
   write_capacity = 1
-  hash_key       = "Timestamp"
+  hash_key       = "EntryID"
+  range_key      = "Timestamp"
+
+  attribute {
+    name = "EntryID"
+    type = "S"
+  }
 
   attribute {
     name = "Timestamp"
@@ -18,7 +24,13 @@ resource "aws_dynamodb_table" "logs" {
   billing_mode   = "PROVISIONED"
   read_capacity  = 1
   write_capacity = 1
-  hash_key       = "Timestamp"
+  hash_key       = "EntryID"
+  range_key      = "Timestamp"
+
+  attribute {
+    name = "EntryID"
+    type = "S"
+  }
 
   attribute {
     name = "Timestamp"
