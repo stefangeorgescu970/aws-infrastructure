@@ -27,3 +27,18 @@ resource "aws_dynamodb_table" "logs" {
 
   tags = local.tags
 }
+
+resource "aws_dynamodb_table" "auth" {
+  name           = "network-service-auth-${var.stage}"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 1
+  write_capacity = 1
+  hash_key       = "Email"
+
+  attribute {
+    name = "Email"
+    type = "S"
+  }
+
+  tags = local.tags
+}

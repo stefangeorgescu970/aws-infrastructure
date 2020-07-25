@@ -51,6 +51,12 @@ variable "cloudwatch_enabled" {
   default     = false
 }
 
+variable "lambda_code_path" {
+  description = "Path to the file containing the lambda code."
+  type        = string
+  default     = ""
+}
+
 variable "tags" {
   description = "A map of tags to be added to the Lambda Function."
   type        = map(string)
