@@ -5,8 +5,29 @@ Licensed under the Apache License, Version 2.0 (the "License"). You may not use 
 or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 """
 from __future__ import print_function
-
+import boto3
+import os
 import re
+from boto3.dynamodb.conditions import Key
+
+def validateToken(email, token):
+    dynamo = boto3.resource('dynamodb').Table('network-service-auth-' + os.environ['STAGE'])
+
+    user = email
+    response = dynamo.query(
+        KeyConditionExpression=Key('Email').eq(user)
+    )
+
+    if response["Count"] != 1:
+        return False
+        
+    item = response["Items"][0]
+
+    if token == item["Token"]:
+        return True
+    else:
+        return False
+    
 
 
 def handler(event, context):
@@ -15,15 +36,14 @@ def handler(event, context):
     print("Method ARN: " + event['methodArn'])
     """validate the incoming token"""
     """and produce the principal user identifier associated with the token"""
-
-    tokenValid = True
-
     """this could be accomplished in a number of ways:"""
     """1. Call out to OAuth provider"""
     """2. Decode a JWT token inline"""
     """3. Lookup in a self-managed DB"""
     principalId = "stefan.georgescu.970@gmail.com"
-
+    tokenValid = validateToken(principalId, event['authorizationToken'])
+    
+  
     """you can send a 401 Unauthorized response to the client by failing like so:"""
     """raise Exception('Unauthorized')"""
 
@@ -50,12 +70,15 @@ def handler(event, context):
     policy.stage = apiGatewayArnTmp[1]
 
     if tokenValid:
-        policy.allowAllMethods()
+        policy.allowMethod(HttpVerb.ALL, "/api")
     else:
-        policy.denyAllMethods()    
+        policy.denyMethod(HttpVerb.ALL, "/api")
+        
+    policy.allowMethod(HttpVerb.ALL, "/login")
 
     # Finally, build the policy
     authResponse = policy.build()
+    print(authResponse)
  
     # new! -- add additional key-value pairs associated with the authenticated principal
     # these are made available by APIGW like so: $context.authorizer.<key>
