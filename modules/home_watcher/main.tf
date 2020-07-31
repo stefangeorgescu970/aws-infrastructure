@@ -10,6 +10,11 @@ resource "aws_dynamodb_table" "network_data" {
     type = "N"
   }
 
+  ttl {
+    attribute_name = "TimeToLive"
+    enabled        = true
+  }
+
   tags = local.tags
 }
 
