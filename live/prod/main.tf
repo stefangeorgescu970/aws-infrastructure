@@ -28,3 +28,9 @@ module "home_watcher_infrastructure" {
 
   stage = var.stage
 }
+
+module "plc_webapp_infrastructure" {
+  source = "../../modules/plc_webapp"
+
+  stage = var.stage
+}
