@@ -9,16 +9,22 @@ variable "acl" {
   default     = "private"
 }
 
-variable "region" {
-  description = "If specified, the AWS region this bucket should reside in."
-  type        = string
-  default     = null
-}
-
 variable "versioning_enabled" {
   description = "Enable versioning."
   type        = bool
   default     = false
+}
+
+variable "lifecycle_rule_enabled" {
+  description = "Whether or not lifecycle rules are enabled."
+  type        = bool
+  default     = false
+}
+
+variable "days_until_expire" {
+  description = "Days until object gets deleted from S3."
+  type        = number
+  default     = 0
 }
 
 variable "tags" {

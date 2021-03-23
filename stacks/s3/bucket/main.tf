@@ -1,10 +1,16 @@
 resource "aws_s3_bucket" "this" {
   bucket = var.bucket_name
   acl    = var.acl
-  region = var.region
 
   versioning {
     enabled = var.versioning_enabled
+  }
+
+  lifecycle_rule {
+    enabled = var.lifecycle_rule_enabled
+    expiration {
+      days = var.days_until_expire
+    }
   }
 
   tags = var.tags

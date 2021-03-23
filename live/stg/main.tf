@@ -1,16 +1,24 @@
 terraform {
-  required_version = "= 0.12.24"
+  required_version = "= 0.13.6"
 
   backend "s3" {
-    region = "eu-central-1"
-    bucket = "stefan-georgescu-terraform-states"
-    key    = "stg.terraform.tfstate"
+    region                  = "eu-central-1"
+    bucket                  = "stefan-georgescu-terraform-states"
+    key                     = "stg.terraform.tfstate"
+    shared_credentials_file = "~/.aws/own-aws-files/credentials"
+  }
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
   }
 }
 
 provider "aws" {
-  version = "~> 2.0"
-  region  = var.aws_region
+  region                  = var.aws_region
+  shared_credentials_file = "~/.aws/own-aws-files/credentials"
 
   assume_role {
     role_arn = "arn:aws:iam::691933307799:role/StagingEnvironmentAdminRole"
