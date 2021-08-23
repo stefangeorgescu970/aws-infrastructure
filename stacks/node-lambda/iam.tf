@@ -39,15 +39,14 @@ resource "aws_iam_role_policy" "access_s3_buckets" {
 
 data "aws_iam_policy_document" "allow_access_ses_topics" {
   statement {
-    actions   = ["ses:*"]
-    resources = var.allowed_ses_topic_arns
+    actions   = ["ses:SendEmail", "ses:SendRawEmail"]
+    resources = ["*"]
     effect    = "Allow"
   }
 }
 
 resource "aws_iam_role_policy" "access_ses_topics" {
-  count  = length(var.allowed_ses_topic_arns) == 0 ? 0 : 1
   name   = "${aws_iam_role.lambda_role.name}-lambda-ses-access"
   role   = aws_iam_role.lambda_role.id
-  policy = data.aws_iam_policy_document.allow_access_s3_buckets.json
+  policy = data.aws_iam_policy_document.allow_access_ses_topics.json
 }

@@ -1,5 +1,5 @@
 terraform {
-  required_version = "= 0.12.24"
+  required_version = "= 0.14.7"
 
   backend "s3" {
     region = "eu-central-1"

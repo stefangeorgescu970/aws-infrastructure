@@ -27,6 +27,18 @@ variable "tags" {
   default     = {}
 }
 
+variable "expire_enabled" {
+  description = "Whether Expire rule should be enabled."
+  type        = bool
+  default     = false
+}
+
+variable "expire_duration" {
+  description = "Days in which the bucket should expire"
+  type        = number
+  default     = 45
+}
+
 variable "block_public_acls" {
   description = "Whether Amazon S3 should block public ACLs for this bucket."
   type        = bool

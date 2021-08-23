@@ -58,12 +58,6 @@ variable "lambda_code_path" {
   default     = ""
 }
 
-variable "allowed_ses_topic_arns" {
-  description = "Arns of allowed topics."
-  type        = list(string)
-  default     = []
-}
-
 variable "allowed_bucket_resources" {
   description = "Arns of allowed buckets."
   type        = list(string)

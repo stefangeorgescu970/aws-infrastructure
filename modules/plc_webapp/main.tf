@@ -1,11 +1,15 @@
 module "backups_bucket" {
   source      = "../../stacks/s3/bucket"
   bucket_name = "plc-metrics-webapp-db-backup-${var.stage}"
+
+  expire_enabled = true
 }
 
 module "logs_bucket" {
   source      = "../../stacks/s3/bucket"
   bucket_name = "plc-metrics-webapp-logs-${var.stage}"
+
+  expire_enabled = true
 }
 
 
@@ -16,13 +20,12 @@ module "forward_message_lambda" {
   lambda_timeout       = 900
   env                  = var.stage
 
-  scheduling_enabled  = true
+  scheduling_enabled  = var.stage == "prod"
   schedule_expression = "rate(1 day)"
 
   cloudwatch_enabled = true
 
-  allowed_ses_topic_arns = []
-  allowed_bucket_resources = []
+  allowed_bucket_resources = [module.backups_bucket.bucket_arn]
 
   tags = local.tags
 }

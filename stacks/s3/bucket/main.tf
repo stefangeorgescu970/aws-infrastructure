@@ -7,6 +7,15 @@ resource "aws_s3_bucket" "this" {
     enabled = var.versioning_enabled
   }
 
+    lifecycle_rule {
+        id      = "expire"
+        enabled = var.expire_enabled
+
+        expiration {
+            days = var.expire_duration
+        }
+  }
+
   tags = var.tags
 }
 
