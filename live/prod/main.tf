@@ -42,3 +42,13 @@ module "plc_webapp_infrastructure" {
 
   stage = var.stage
 }
+
+
+module "days_since_infrastructure" {
+  source = "../../modules/days_since"
+
+  stage = var.stage
+  instance_key_pair_name = "days-since-prod"
+  vpc_id = "vpc-5d3dec37"
+  ssh_ip = "82.137.48.184/32"
+}
