@@ -21,7 +21,7 @@ module "forward_message_lambda" {
   env                  = var.stage
 
   scheduling_enabled  = var.stage == "prod"
-  schedule_expression = "rate(1 day)"
+  schedule_expression = "cron(0 7 * * ? *)"
 
   cloudwatch_enabled = true
 
